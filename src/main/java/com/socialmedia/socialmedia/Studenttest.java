@@ -1,56 +1,40 @@
 package com.socialmedia.socialmedia;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 @RestController
 public class Studenttest {
+    @Autowired
+    Studentservice studentservice;
 
-    List<Student>students=new ArrayList<>();
+
     @RequestMapping (method = RequestMethod.POST,value = "/student")
     public void addStudent(@RequestBody Student student){
-        students.add(student);
+
+        studentservice.addStudent(student);
     }
     @RequestMapping(method = RequestMethod.GET,value = "/student")
     public List<Student> getStudents(){
-        return students;
+        return studentservice.getStudents();
     }
     @RequestMapping(method = RequestMethod.GET,value = "/student/{student_id}")
     public Student getStudent(@PathVariable("student_id")String student_id){
-        Student response=null;
-        for (Student student:students){
-            if (student.getId().equals(student_id)){
-                response=student;
-                break;
-            }
-
-        }
-        return response;
+       return studentservice.getStudent(student_id);
     }
+
+
     @RequestMapping(method = RequestMethod.PUT,value = "/student/{student_id}")
     public Student updateStudent(@RequestBody Student student,@PathVariable("student_id")String student_id){
-        Student response=null;
-        for (Student student_obj:students){
-            if (student.getId().equals(student_id)){
-                student_obj.setName(student.getName());
-                student_obj.setClassName(student.getClassName());
-                response=student_obj;
-                break;
-            }
+      return studentservice.updateStudent(student,student_id);
         }
-        return response;
-    }
+
+
     @RequestMapping(method = RequestMethod.DELETE,value = "/student/{student_id}")
     public void deleteStudent(@PathVariable("student_id")String student_id){
-        List<Student> new_student_list=new ArrayList<>();
-        for (Student student:students){
-            if (!student.getId().equals(student_id)){
-                new_student_list.add(student);
-                break;
-            }
-        }
-        students=new_student_list;
+       studentservice.deleteStudent(student_id);
     }
 
 
