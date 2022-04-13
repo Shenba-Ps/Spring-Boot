@@ -8,7 +8,7 @@ import java.util.List;
 @RestController
 public class Studenttest {
     @Autowired
-    Studentservice studentservice;
+   private Studentservice studentservice;
 
 
     @RequestMapping (method = RequestMethod.POST,value = "/student")
@@ -20,6 +20,7 @@ public class Studenttest {
     public List<Student> getStudents(){
         return studentservice.getStudents();
     }
+
     @RequestMapping(method = RequestMethod.GET,value = "/student/{student_id}")
     public Student getStudent(@PathVariable("student_id")String student_id){
        return studentservice.getStudent(student_id);
@@ -37,6 +38,23 @@ public class Studenttest {
        studentservice.deleteStudent(student_id);
     }
 
-
+    @RequestMapping(method = RequestMethod.POST,value = "/students")
+    public List<Student> getStudents(@RequestBody  Studentbyids student_ids){
+        List<Student> StudentRecords =  studentservice.getStudents(student_ids.getIds());
+        return StudentRecords;
+    }
+    @RequestMapping(method = RequestMethod.POST,value = "/studentcus")
+    public List<Customstudent> customstudentList(@RequestBody Studentbyids studentbyids){
+       return studentservice.customstudentList(studentbyids.getIds());
+    }
 
 }
+
+
+
+
+//   {ids:[33,44]}
+
+//   [{};{}]
+
+

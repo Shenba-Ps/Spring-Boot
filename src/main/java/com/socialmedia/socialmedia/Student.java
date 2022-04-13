@@ -37,6 +37,9 @@ public class Student {
     public void setClassName(String className) {
         this.className = className;
     }
+    public void addStudent_ids( Student student, String student_ids){
+
+    }
 
 
 

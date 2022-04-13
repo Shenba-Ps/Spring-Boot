@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -47,14 +48,85 @@ public class Studentservice {
         return response;
     }
 
-    public void deleteStudent( String student_id) {
-        List<Student> new_student_list = new ArrayList<>();
+    public void deleteStudent(String student_id) {
+       List<Student> new_student_list = new ArrayList<>();
+       for (Student student : students) {
+//            if (!student.getId().equals(student_id)) {
+//                new_student_list.add(student);
+//                break;
+
+           if (student.getId().equals(student_id)) {
+               students.remove(student);
+               break;
+            }
+       }
+//        students = new_student_list;
+    }
+
+    public List<Student> getStudents(String[] student_id) {
+        List<Student> students1 = new ArrayList<>();
         for (Student student : students) {
-            if (!student.getId().equals(student_id)) {
-                new_student_list.add(student);
-                break;
+            for(int i=0;i<student_id.length;i++) {
+                if (student.getId().equals(student_id[i])) {
+                    students1.add(student);
+                }
             }
         }
-        students = new_student_list;
+        return students1;
+
     }
-}
+    public List<Customstudent> customstudentList( String[] student_id) {
+        List<Customstudent> newList = new ArrayList<>();
+        for (Student student : students) {
+            for (int i = 0; i < student_id.length; i++) {
+                if (student.getId().equals(student_id[i])) {
+                    Customstudent customstudent1 = new Customstudent(student.getId(), student.getName());
+                    newList.add(customstudent1);
+                }
+            }
+        }
+        return newList;
+    }
+
+
+
+//    List<Student> studentids = new ArrayList<Student>();
+
+//List<String> list=new ArrayList<>();
+//List<Student> studentList=new ArrayList<>();
+//    public void addStudent_ids( Student student) {
+//        students.add(student);
+//
+//    }
+
+//    public List<Student> getStudents_id( String[] student_ids) {
+//        Student response = null;
+//        for (Student s : students) {
+//            if (s.getId().equals(student_ids)) {
+//                response = s;
+//                break;
+//            }
+//        }return response;
+
+    }
+
+
+
+
+
+
+
+//    public List<Student> getStudentsids(Student student,String[] student_ids){
+//        Student response=null;
+//        for (Student s:students){
+//            if (s.getId().equals(student_ids)){
+//                response=s;
+//                break;
+//            }
+//
+//        }return (List<Student>) response;
+
+
+
+
+
