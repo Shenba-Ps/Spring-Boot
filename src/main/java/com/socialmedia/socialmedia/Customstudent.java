@@ -4,9 +4,7 @@ public class Customstudent {
     private String id;
     private String name;
 
-    public Customstudent(){
 
-    }
     public Customstudent(String id, String name) {
         this.id = id;
         this.name = name;

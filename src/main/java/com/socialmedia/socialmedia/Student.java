@@ -1,12 +1,18 @@
 package com.socialmedia.socialmedia;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "shenba_student")
 
 public class Student {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String name;
     private String className;
     public Student(){}
-    public Student(String id, String name, String className) {
+    public Student( String name, String className) {
         this.id = id;
         this.name = name;
         this.className = className;
@@ -14,19 +20,22 @@ public class Student {
 
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
+
         this.id = id;
     }
 
     public String getName() {
+
         return name;
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 
